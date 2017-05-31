@@ -1,0 +1,18 @@
+Package: utilities
+Title: Pakiet z różnymi funkcjami użytkowymi
+Version: 0.1
+Author: Kamil Foltyński
+Maintainer: <tazzpl@gmail.com>
+Description: Zbiór funkcji użytkowych.
+Depends:
+    R (>= 3.1.0),
+    data.table (>= 1.9.6)
+Imports:
+    parallel (>= 3.2.2),
+    tidyr (>= 0.6.3),
+    digest (>= 0.6.3),
+    assertthat (>= 0.2.0)
+License: MIT + file LICENSE 
+LazyData: true
+Encoding: UTF-8
+RoxygenNote: 6.0.1
