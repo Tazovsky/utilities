@@ -13,7 +13,7 @@
 list2char <- function(data, except = NULL, sep = NULL){
   
   if (any(sapply(data, is.list)) == F ) {
-    warning("W danych nie ma zadnej kolumny klasy 'list'. Zwracam niezmieniony argument 'data'.")
+    message("W danych nie ma zadnej kolumny klasy 'list'. Zwracam niezmieniony argument 'data'.")
     return(data)
   }
   

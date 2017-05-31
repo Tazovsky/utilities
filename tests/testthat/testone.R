@@ -17,6 +17,6 @@ test_that("floor_date works for different units", {
   expect_equal(floor_date(base, "year"),   
                as.POSIXct("2009-01-01 00:00:00", tz = "UTC"))
   
-  expect_equal(10,11)
+  # expect_equal(10,11)
   
 })
