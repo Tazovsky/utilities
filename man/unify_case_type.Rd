@@ -2,10 +2,9 @@
 % Please edit documentation in R/16-unifyCaseType.R
 \name{unify_case_type}
 \alias{unify_case_type}
-\title{unifyCaseType}
+\title{unify_case_type}
 \usage{
-unify_case_type(DT_frame, cols2lower = c("ac", "cid", "products"),
-  cols2upper = c("country"))
+unify_case_type(DT_frame, cols2lower, cols2upper)
 }
 \arguments{
 \item{DT_frame}{data.table}

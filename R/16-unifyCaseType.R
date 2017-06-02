@@ -2,7 +2,7 @@
 #' @description Funkcja w wybrancych kolumanch zmienia wartości na UPPERCASE/LOWERCASE
 #' 
 #' @import data.table
-#' 
+#' @importFrom assertthat assert_that
 #' @param DT_frame data.table
 #' @param cols2lower character; wektor nazw kolumn, które mają byc zamienione na LOWER CASE
 #' @param cols2upper character; wektor nazw kolumn, które mają byc zamienione na UPPER CASE
@@ -24,11 +24,11 @@ unify_case_type <- function(DT_frame,  cols2lower, cols2upper ) {
     stop("'cols2upper' nie jest wektorem")
   
   if (length(intersect(cols2lower, cols2upper) ) > 0 )
-    stop("Nie możesz jednocześnie zmieniać tych samych kolumn na UPPERCASE i LOWERCASE")
+    stop("Nie mozesz jednoczenie zmieniac tych samych kolumn na UPPERCASE i LOWERCASE")
     
   # oba argumenty nie moga byc puste bo wtedy stosowanie funkcji nie ma sensu
   if ( (is.null(cols2lower) | length(cols2lower) == 0) &  (is.null(cols2upper) | length(cols2upper) == 0) )
-    stop("Oba argumenty 'cols2upper' i 'cols2lower' nie mogą być puste")
+    stop("Oba argumenty 'cols2upper' i 'cols2lower' nie moga byc puste")
   
   if (all(cols2lower %in% names(DT_frame) ) == F)
     stop(sprintf("W 'DT_frame' nie ma kolumn o nazwach: %s", paste0(cols2lower[!cols2lower %in% names(DT_frame)], collapse = ", ") ))
@@ -37,7 +37,7 @@ unify_case_type <- function(DT_frame,  cols2lower, cols2upper ) {
     stop(sprintf("W 'DT_frame' nie ma kolumn o nazwach: %s", paste0(cols2upper[!cols2upper %in% names(DT_frame)], collapse = ", ") ))
   
   if (any(sapply(DT_frame[, c(cols2lower, cols2upper), with = F], is.list)))
-      stop("Wybrane kolumny w argumentach 'cols2lowe', 'cols2upper' są klasy 'list', której funkcja nie obsługuje.")
+      stop("Wybrane kolumny w argumentach 'cols2lowe', 'cols2upper' sa klasy 'list', ktorej funkcja nie obsluguje.")
   
   
     DT_frame <- copy(DT_frame)  # zeby uniknac modyfikacji tabeli przez referencje pamieci
