@@ -15,6 +15,9 @@ is_missing <- function(vec, check_if_finite = TRUE) {
   if ( is.vector(vec) == FALSE )
     stop("Argument 'vec' nie jest vectorem.")
   
+  if ( is.logical(check_if_finite) == F)
+    stop("'check_if_finite' musi być wartością logiczną TRUE lub FALSE")
+  
   check_character <- is.character(vec) 
   ifelse( is.na(vec) | is.null(vec) | (check_character & (vec == "" | vec == " ")) | (check_if_finite & is.infinite(vec)), TRUE, FALSE) 
   
