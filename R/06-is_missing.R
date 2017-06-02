@@ -9,6 +9,9 @@
 #' @examples is_missing(vec = c(1,3, NA, NaN, Inf), check_if_finite = FALSE)
 is_missing <- function(vec, check_if_finite = TRUE) {
   
+  if (is.logical(check_if_finite) == F)
+    stop("'check_if_finite' nie jest wartoscia logiczna")
+  
   if ( not_empty(vec) == FALSE )
     stop("Argument 'vec' jest pusty.")
   

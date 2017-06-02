@@ -3,7 +3,7 @@
 #' @import data.table
 #' @param data data.table; dane w postaci data.table 
 #' @param except character vector; nazwy kolumn podawane w wektorze, których nie chcemy zamieniać na character
-#' @param sep character; separator zamienianych kolumn w data.table
+#' @param sep character; separator zamienianych kolumn w data.table; jeśli NULL to domyślnie jest to ", "
 #'
 #' @return data.table 
 #' @export
@@ -26,6 +26,9 @@ list2char <- function(data, except = NULL, sep = NULL){
   
   if (length(cols_not_in) > 0 )
     stop(sprintf("Niepoprawne nazwy kolumn w argumencie 'except': %s.", paste0(cols_not_in, collapse = ", ")))
+  
+  if (!is.null(sep) && !is.character(sep))
+    stop("Argument 'sep' musi byc klasy 'character'")
   
   # nie chcemy zeby zmienila sie struktura danych wejsciowych poprzez referencje do pamieci stad robimy jej kopie w pamieci
   data <- copy(data)

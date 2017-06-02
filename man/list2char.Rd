@@ -11,7 +11,7 @@ list2char(data, except = NULL, sep = NULL)
 
 \item{except}{character vector; nazwy kolumn podawane w wektorze, których nie chcemy zamieniać na character}
 
-\item{sep}{character; separator zamienianych kolumn w data.table}
+\item{sep}{character; separator zamienianych kolumn w data.table; jeśli NULL to domyślnie jest to ", "}
 }
 \value{
 data.table

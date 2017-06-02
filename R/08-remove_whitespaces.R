@@ -10,6 +10,17 @@
 #' @examples remove_whitespaces("  ad  asd as  ", beginning = FALSE, end = TRUE)
 remove_whitespaces <- Vectorize(function(string,  beginning = FALSE, end = FALSE ){
   
+  if (is.null(string) || nchar(string) == 0)
+    stop("Argument 'string' jest pusty.")
+
+  if (!is.character(string))
+    stop("Argument 'string' musi byc klasy 'character'")
+  
+  
+  if (all(is.logical(c(beginning, end))) == F)
+    stop("Argumenty 'beginning', 'end' nie sa wartosciami logicznymi.")
+  
+  
   if (beginning == TRUE ) s1 <- gsub("^\\s+|^\\t+|^\\n+|^\\r+","", string )
   if (end == TRUE ) s1 <- gsub("\\s+$|\\t+$|\\n+$|\\r+$","", string )
   if (beginning == TRUE & end == TRUE) s1 <- gsub("^\\s+|^\\t+|^\\n+|^\\r+|\\s+$|\\t+$|\\n+$|\\r+$","", string )

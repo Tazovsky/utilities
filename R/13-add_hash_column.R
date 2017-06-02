@@ -15,6 +15,9 @@
 #' @param cores integer; ile corów ma być używanych przy tworzeniu hash'a (działa tylko kiedy unite = TRUE); domyślnie 1
 #' @param sort_colnames_for_hash logical; jeśli TRUE, to sortuje wektor z kolumnami
 #'
+#' @importFrom assertthat is.string
+#' @importFrom parallel detectCores
+#'
 #' @return data.table
 #' @export
 #' @examples 
@@ -24,8 +27,21 @@
 #'                            sort_colnames_for_hash = TRUE)
 add_hash_column <- function(DT_frame, hash_colname = "hash", colnames_for_hash = colnames(DT_frame), excluded_colnames = c(), unite = TRUE, cores = 1L, sort_colnames_for_hash = TRUE ) {
   
+  if (!is.string(hash_colname))
+    stop("'hash_colname' musi byc klasy stringiem")
   
-  # asercje
+  if (!is.logical(unite))
+    stop("'unite' musi byc wartoscia logiczna")
+  
+  if (!is.logical(sort_colnames_for_hash))
+    stop("'sort_colnames_for_hash' musi byc wartoscia logiczna")
+  
+  if (!is.integer(cores))
+    stop("'cores' musi byc klasy integer")
+  
+  if (cores > detectCores())
+    stop(sprintf("Mozesz uzyc maksymalnie %s rdzeni.", detectCores() ))
+  
   if (is.vector(colnames_for_hash) == FALSE)
     stop("'colnames_for_hash' is not a vector.")
   
