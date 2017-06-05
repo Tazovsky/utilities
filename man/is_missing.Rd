@@ -7,15 +7,16 @@
 is_missing(vec, check_if_finite = TRUE)
 }
 \arguments{
-\item{vec}{vector. Wektor z wartościami, w których spodziewamy się brakujących wartości.}
+\item{vec}{vector}
 
-\item{check_if_finite}{logical. Jeśli flaga jest TRUE, wartość `Inf` też będzie uznawana za brakującą.}
+\item{check_if_finite}{logical; If TRUE, then `Inf` tis considered as missing too}
 }
 \value{
 logical vector
 }
 \description{
 Sprawdzenie, czy elementy wektora nie są puste (NA, NULL, NaN, "" lub " "; opcjonalnie: +/-Inf)
+checks if any vector element is empty (NA, NULL, NaN, "" or " "; optional: +/-Inf) and returns logical vector
 }
 \examples{
 is_missing(vec = c(1,3, NA, NaN, Inf), check_if_finite = FALSE)

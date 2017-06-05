@@ -1,3 +1,5 @@
+context("is_missing")
+
 test_that("is_missing: subset not missing values from vector", {
   vec <- c(1, NaN, 2, NA, 3, Inf)
   
@@ -7,7 +9,7 @@ test_that("is_missing: subset not missing values from vector", {
 })
 
 
-test_that("is_missing: checnging missing values in data.table columns", {
+test_that("is_missing: checking missing values in data.table columns", {
   d1 <- data.table(a = c(1,2,NA), b = c(NaN,5,6), c  = c(Inf,8,9))
   
   cols2check <- c("a", "b", "c")
@@ -18,3 +20,18 @@ test_that("is_missing: checnging missing values in data.table columns", {
   
   expect_identical(d1, d2) 
 })
+
+test_that("check_if_finite is logical", {
+  expect_error(is_missing(c(1, NaN, 2, NA, 3, Inf), check_if_finite = "TRUE"), "not a logical value")
+})
+
+test_that("vec is not empty", {
+  expect_error(is_missing(c(), check_if_finite = TRUE), "is empty")
+})
+
+
+test_that("vec is not a vactor", {
+  expect_error( is_missing(list(1,NaN,3)), "not a vector")
+})
+
+
