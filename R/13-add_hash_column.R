@@ -2,21 +2,18 @@
 #' @importFrom digest digest 
 #' @importFrom tidyr unite_
 #' @importFrom parallel mcmapply
-#' @import data.table
-#' @description Funkcja dodająca kolumnę hashem (więcej informacji o sposobie tworzenia hasha: \link[digest]{digest}). Hash wyliczany jest na podstawie wartości w polach (kolumnach) wyspecyfikowanych w argumencie `colnames_for_hash` (domyślnie są to wszystkie kolumny w `DT_frame`). Funkcja może mieć zastosowanie przy tworzeniu Primary Key w tabeli, która ma trafić na bazę MySQL
-#'
-#' @param DT_frame data.table. Ramka, do której dodana zostanie kolumna `hash`.
-#' @param hash_colname nazwa kolumny z tworzonym hashem
-#' @param colnames_for_hash character vector. Wektor z nazwami kolumn,
-#'     które będą brane dodatkowo przy wyliczaniu hasha.
-#' @param excluded_colnames character vector. Nazwy kolumn, które NIE zostaną wzięte
-#'        do wyliczania kolumny `hash`.
-#' @param unite logical; jeśli TRUE, to najpierw tworzy nowa kolumnę przy pomocy 'tidyr::unite_' i dopiero na niej tworzy hash; przy większych ramkach danych ma to znaczenie, bo jeśli TRUE, to działa dużo szybciej
-#' @param cores integer; ile corów ma być używanych przy tworzeniu hash'a (działa tylko kiedy unite = TRUE); domyślnie 1
-#' @param sort_colnames_for_hash logical; jeśli TRUE, to sortuje wektor z kolumnami
-#'
 #' @importFrom assertthat is.string
 #' @importFrom parallel detectCores
+#' @import data.table
+#' @description adds hash column (more info: \link[digest]{digest}). Hash is calculated on columne specified in `colnames_for_hash` argument (all columns by default). Function may be useful for creating Primary Key column (e.g. in MySQL )
+#'
+#' @param DT_frame data.table. 
+#' @param hash_colname character; name of hash column
+#' @param colnames_for_hash character vector; column names to create hash
+#' @param excluded_colnames character vector; column names NOT to create hash
+#' @param unite logical; if TRUE, then firstly uses 'tidyr::unite_' on 'colnames_for_hash' and only then creates hash. It matter when data.table is big frame, because it is much faster
+#' @param cores integer; number of cores to create hash (works only when unite = TRUE); default: 1
+#' @param sort_colnames_for_hash logical; if TRUE, sorts columns alphabetically before hash creation
 #'
 #' @return data.table
 #' @export
@@ -57,7 +54,7 @@ add_hash_column <- function(DT_frame, hash_colname = "hash", colnames_for_hash =
   weird_colnames <- c( setdiff(colnames_for_hash, colnames(DT_frame)),
                        setdiff(excluded_colnames, colnames(DT_frame)) )
   if (length(weird_colnames))
-    stop(sprintf("Column names: (%s) are missing from 'DT_frame'", paste0(weird_colnames, collapse = ", ")) )
+    stop(sprintf("Column names: (%s) are missing in 'DT_frame'", paste0(weird_colnames, collapse = ", ")) )
   
   # pozbywam się (potencjalne) kolumn nie do hasha
   colnames_for_hash <- setdiff(colnames_for_hash, excluded_colnames)

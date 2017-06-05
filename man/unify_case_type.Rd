@@ -9,15 +9,15 @@ unify_case_type(DT_frame, cols2lower, cols2upper)
 \arguments{
 \item{DT_frame}{data.table}
 
-\item{cols2lower}{character; wektor nazw kolumn, które mają byc zamienione na LOWER CASE}
+\item{cols2lower}{character vector; column names to convert to LOWERCASE}
 
-\item{cols2upper}{character; wektor nazw kolumn, które mają byc zamienione na UPPER CASE}
+\item{cols2upper}{character vector; column names to convert toUPPERCASE}
 }
 \value{
 data.table
 }
 \description{
-Funkcja w wybrancych kolumanch zmienia wartości na UPPERCASE/LOWERCASE
+converts selected columns to UPPERCASE or LOWERCASE
 }
 \examples{
 data <- data.table(a = c("X", "y", "Z"), b = c("a", "a", "Aa"), c = c("q", "w", "e"))
