@@ -7,17 +7,17 @@
 list2char(data, except = NULL, sep = NULL)
 }
 \arguments{
-\item{data}{data.table; dane w postaci data.table}
+\item{data}{data.table;}
 
-\item{except}{character vector; nazwy kolumn podawane w wektorze, których nie chcemy zamieniać na character}
+\item{except}{character vector; column names we don't want to change to character}
 
-\item{sep}{character; separator zamienianych kolumn w data.table; jeśli NULL to domyślnie jest to ", "}
+\item{sep}{character; to separate values; if NULL then value is set to ", ";}
 }
 \value{
 data.table
 }
 \description{
-Funkcja zamieniająca klasę list na string w kolumnach data.table
+Changes 'list' class to 'character' in data.table column
 }
 \examples{
 data <- data.table(a = c(1,2,3), b = list(c("a", "b"), "c", c("d", "e")))
