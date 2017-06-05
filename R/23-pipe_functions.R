@@ -1,5 +1,5 @@
 #' @title \%l0>\%
-#' @description Jeśli \code{length(lhs) == 0}, to zamienia na rhs
+#' @description If \code{length(lhs) == 0}, then change to \code{rhs}
 #' 
 #' @param lhs arg to check
 #' @param rhs arg to return if lhs length is 0

@@ -1,8 +1,8 @@
 #' @title source_dir
-#' @description source wszystkich skryptów (*.R) ze wskazanego katalogu
+#' @description sources all R scriptd (*.R) from sepcified directory
 #' 
 #' @importFrom assertthat not_empty
-#' @param path character; ścieżka do katalagu
+#' @param path character; path to directory
 #'
 #' @return NULL
 #' @export
@@ -10,10 +10,10 @@
 source_dir <- function(path) {
   
   if (!is.character(path))
-    stop("Agrument 'path' musi byc klasy 'character'")
+    stop("'path' is not a character")
   
   if (!file.exists(path))
-    stop(sprintf("Sciezka '%s' nie istnieje.", path ))
+    stop(sprintf("Path '%s' does not exist", path ))
   
   file.sources <- list.files( path, pattern = ".*\\.R$", full.names = TRUE, ignore.case = TRUE)
   

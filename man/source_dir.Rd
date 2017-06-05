@@ -7,8 +7,8 @@
 source_dir(path)
 }
 \arguments{
-\item{path}{character; ścieżka do katalagu}
+\item{path}{character; path to directory}
 }
 \description{
-source wszystkich skryptów (*.R) ze wskazanego katalogu
+sources all R scriptd (*.R) from sepcified directory
 }

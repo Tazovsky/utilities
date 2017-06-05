@@ -12,7 +12,7 @@ lhs \%l0>\% rhs
 \item{rhs}{arg to return if lhs length is 0}
 }
 \description{
-Jeśli \code{length(lhs) == 0}, to zamienia na rhs
+If \code{length(lhs) == 0}, then change to \code{rhs}
 }
 \examples{
 list(1, integer(0), character(0), numeric(0), NA,24) \%l0>\% 666
