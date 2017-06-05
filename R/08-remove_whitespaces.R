@@ -1,8 +1,10 @@
 #' @title remove_whitespaces
-#' @description Funkcja usuwa białe znaki takie jak spacja, tabulator, nowa linia, non-breaking spacja. Funkcja jest zwektoryzowana. Jeśli beginning i end są FALSE to usuwa wszyskie białem znaki ze stringa
+#' @description removes whitespaves such as space, tab, nee line, non-breaking space; is vectorized; if beginnig and end are TRUE, then removes ALL whitespaces from string
 #' @param string string; 
-#' @param beginning logical; jeśli TRUE to usuwa białe znaki z początku stringa
-#' @param end logical; jeśli TRUE to usuwa białe znaki z końca stringa
+#' @param beginning logical; if TRUE, then removes whitespaces from the beginnig of string
+#' @param end logical; jeśli if FALSE, then removes whitespaces from the end of string
+#'
+#' @importFrom assertthat is.string  
 #'
 #' @return string bez bialych znaków
 #' @export
@@ -10,15 +12,14 @@
 #' @examples remove_whitespaces("  ad  asd as  ", beginning = FALSE, end = TRUE)
 remove_whitespaces <- Vectorize(function(string,  beginning = FALSE, end = FALSE ){
   
+  if (is.string(string) == F)
+    stop("'string' argument is not a string")
+  
   if (is.null(string) || nchar(string) == 0)
-    stop("Argument 'string' jest pusty.")
+    stop("'string' argument is empty")
 
-  if (!is.character(string))
-    stop("Argument 'string' musi byc klasy 'character'")
-  
-  
   if (all(is.logical(c(beginning, end))) == F)
-    stop("Argumenty 'beginning', 'end' nie sa wartosciami logicznymi.")
+    stop("'beginning' and/or 'end' are not a logical values")
   
   
   if (beginning == TRUE ) s1 <- gsub("^\\s+|^\\t+|^\\n+|^\\r+","", string )
@@ -28,5 +29,3 @@ remove_whitespaces <- Vectorize(function(string,  beginning = FALSE, end = FALSE
   
   gsub(intToUtf8(160),"", s1)
 })
-
-

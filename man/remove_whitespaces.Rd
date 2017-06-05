@@ -9,15 +9,15 @@ remove_whitespaces(string, beginning = FALSE, end = FALSE)
 \arguments{
 \item{string}{string;}
 
-\item{beginning}{logical; jeśli TRUE to usuwa białe znaki z początku stringa}
+\item{beginning}{logical; if TRUE, then removes whitespaces from the beginnig of string}
 
-\item{end}{logical; jeśli TRUE to usuwa białe znaki z końca stringa}
+\item{end}{logical; jeśli if FALSE, then removes whitespaces from the end of string}
 }
 \value{
 string bez bialych znaków
 }
 \description{
-Funkcja usuwa białe znaki takie jak spacja, tabulator, nowa linia, non-breaking spacja. Funkcja jest zwektoryzowana. Jeśli beginning i end są FALSE to usuwa wszyskie białem znaki ze stringa
+removes whitespaves such as space, tab, nee line, non-breaking space; is vectorized; if beginnig and end are TRUE, then removes ALL whitespaces from string
 }
 \examples{
 remove_whitespaces("  ad  asd as  ", beginning = FALSE, end = TRUE)
