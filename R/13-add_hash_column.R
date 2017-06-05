@@ -27,37 +27,37 @@
 #'                            sort_colnames_for_hash = TRUE)
 add_hash_column <- function(DT_frame, hash_colname = "hash", colnames_for_hash = colnames(DT_frame), excluded_colnames = c(), unite = TRUE, cores = 1L, sort_colnames_for_hash = TRUE ) {
   
+  if (!is.data.table(DT_frame))
+    stop("'DT_frame' is not a data.table")
+  
   if (!is.string(hash_colname))
-    stop("'hash_colname' musi byc klasy stringiem")
+    stop("'hash_colname' is not a string")
   
   if (!is.logical(unite))
-    stop("'unite' musi byc wartoscia logiczna")
+    stop("'unite' is not a logical value")
   
   if (!is.logical(sort_colnames_for_hash))
-    stop("'sort_colnames_for_hash' musi byc wartoscia logiczna")
+    stop("'sort_colnames_for_hash' is not a logical value")
   
   if (!is.integer(cores))
-    stop("'cores' musi byc klasy integer")
+    stop("'cores' is not an integer")
   
   if (cores > detectCores())
-    stop(sprintf("Mozesz uzyc maksymalnie %s rdzeni.", detectCores() ))
+    stop(sprintf("The number of cores is unavailable (max. %s)", detectCores() ))
   
-  if (is.vector(colnames_for_hash) == FALSE)
+  if (is.vector(colnames_for_hash) == FALSE | is.list(colnames_for_hash) == T)
     stop("'colnames_for_hash' is not a vector.")
   
-  if (length(excluded_colnames) > 0 && is.vector(excluded_colnames) == FALSE)
+  if ((length(excluded_colnames) > 0 && is.vector(excluded_colnames) == FALSE) | is.list(excluded_colnames) == T )
     stop("'excluded_colnames' is not a vector.")
   
   if (not_empty(colnames_for_hash) == FALSE )
     stop("Vector 'colnames_for_hash' is empty.")
   
-  if (!is.data.table(DT_frame))
-    stop("Error (in function 'add_hash_column'): 'DT_frame' must be a data.table")
-  
   weird_colnames <- c( setdiff(colnames_for_hash, colnames(DT_frame)),
                        setdiff(excluded_colnames, colnames(DT_frame)) )
   if (length(weird_colnames))
-    stop("Error (in function 'add_hash_column'): column names: (%s) are missing from 'DT_frame'")
+    stop(sprintf("Column names: (%s) are missing from 'DT_frame'", paste0(weird_colnames, collapse = ", ")) )
   
   # pozbywam się (potencjalne) kolumn nie do hasha
   colnames_for_hash <- setdiff(colnames_for_hash, excluded_colnames)

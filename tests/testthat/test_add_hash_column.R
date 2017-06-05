@@ -1,3 +1,5 @@
+context("add_hash_column")
+
 test_that("add_hash_column calculating method has changed", {
   
   data <- data.table(a = c("Ala", "Kot", "q"), b = c("Ma", "Ma", "wer"), c = c("Kota", "Ale", "ty"))
@@ -25,3 +27,53 @@ test_that("add_hash_column calculating method has changed (UNITE = FALSE)", {
   expect_equal(dt_hash_w_o_unite[, hash], hashes[, hash] )
   
 })
+
+test_that("Verification of function arguments classes", {
+  data <- data.table(a = c("Ala", "Kot", "q"), b = c("Ma", "Ma", "wer"), c = c("Kota", "Ale", "ty"))
+  
+  expect_error(add_hash_column(data, colnames_for_hash = c("a", "b"), hash_colname = 1,
+                               excluded_colnames = c(), unite = FALSE, cores = 1L,
+                               sort_colnames_for_hash = TRUE), "not a string" )
+  
+  expect_error(add_hash_column(data, colnames_for_hash = c("a", "b"), hash_colname = "hash",
+                               excluded_colnames = c(), unite = "FALSE", cores = 1L,
+                               sort_colnames_for_hash = TRUE), "not a logical" )
+  
+  expect_error(add_hash_column(data, colnames_for_hash = c("a", "b"), hash_colname = "hash",
+                               excluded_colnames = c(), unite = FALSE, cores = 1L,
+                               sort_colnames_for_hash = "TRUE"), "not a logical" )
+  
+  expect_error(add_hash_column(data, colnames_for_hash = c("a", "b"), hash_colname = "hash",
+                               excluded_colnames = c(), unite = FALSE, cores = 1.0,
+                               sort_colnames_for_hash = T), "not an integer" )
+  
+  cores <- as.integer(parallel::detectCores() + 2)
+  expect_error(add_hash_column(data, colnames_for_hash = c("a", "b"), hash_colname = "hash",
+                               excluded_colnames = c(), unite = FALSE, cores = cores,
+                               sort_colnames_for_hash = T), "number of cores is unavailable" )
+  
+  expect_error(add_hash_column(data, colnames_for_hash = list("a", "b"), hash_colname = "hash",
+                               excluded_colnames = c(), unite = FALSE, cores = 1L,
+                               sort_colnames_for_hash = T), "not a vector" )
+  
+  expect_error(add_hash_column(data, colnames_for_hash = c("a", "b"), hash_colname = "hash",
+                               excluded_colnames = list("b"), unite = FALSE, cores = 1L,
+                               sort_colnames_for_hash = T), "not a vector" )
+  
+  expect_error(add_hash_column(data, colnames_for_hash = c(), hash_colname = "hash",
+                               excluded_colnames = list("b"), unite = FALSE, cores = 1L,
+                               sort_colnames_for_hash = T), "not a vector" )
+  
+  expect_error(add_hash_column(mtcars, colnames_for_hash = c("a", "b"), hash_colname = "hash",
+                               excluded_colnames = c(), unite = FALSE, cores = 1L,
+                               sort_colnames_for_hash = T), "not a data\\.table" )
+  
+  expect_error(add_hash_column(data, colnames_for_hash = c("a", "d", "e"), hash_colname = "hash",
+                               excluded_colnames = c(), unite = FALSE, cores = 1L,
+                               sort_colnames_for_hash = T), "Column.*missing" )
+  
+  
+    
+})
+
+
