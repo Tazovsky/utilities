@@ -1,3 +1,5 @@
+context("`%l0>%` test")
+
 test_that("`%l0>%` works with lists", {
   
   l <- list("a", 1, NA, 3, NULL, list() )
@@ -16,6 +18,21 @@ test_that("`%l0>%` works with data.table", {
   out[, c := c %l0>% 7 ]
   
   expect_identical(out, d2)
+})
+
+test_that("`%l0>%` works with vector without zero length elements", {
+  
+  v1 <- c(1, 2, 3)
+  
+  expect_identical( v1 %l0>% 0, v1 )
+  
+})
+
+
+test_that("`%l0>%` works with vector containing zero length elements", {
+  
+  expect_identical( integer(0) %l0>% 0, 0 )
+  
 })
 
 
