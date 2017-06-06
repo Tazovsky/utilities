@@ -1,6 +1,6 @@
 context("list2char")
 
-test_that("list2char works with of list columns in data.table", {
+test_that("list2char works with list columns in data.table", {
   d1 <- data.table(a = c(1,2,3), b = list(c("a", "b"), "c", c("d", "e")))
   d2 <- data.table(a = list(c(1,2,3), c(4, 5, 6), c(7, 8)), b = list(c("a", "b"), "c", c("d", "e")))
   d3 <- data.table(a = c(1,2,3), b = c(4,5,6), c  = c(7,8,9))
@@ -10,8 +10,10 @@ test_that("list2char works with of list columns in data.table", {
   
   expect_equal(list2char(d1, sep = ","), out1)
   expect_equal(list2char(d2, sep = ","), out2)
-  expect_equal(list2char(d3, sep = ","), d3)
   
+  expect_warning( 
+    expect_equal( list2char(d3, sep = ","), d3)
+    , "None of columns is 'list' class")
 })
 
 test_that("list2char works with data.table without any list columns", {
