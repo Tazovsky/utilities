@@ -11,7 +11,7 @@ test_that("list2char works with list columns in data.table", {
   expect_equal(list2char(d1, sep = ","), out1)
   expect_equal(list2char(d2, sep = ","), out2)
   
-  # expect_success(   expect_warning(expect_equal( list2char(d3, sep = ","), d3), "None of columns is 'list' class") )
+  expect_warning({expect_equal( list2char(d3, sep = ","), d3) }, "None of columns is 'list' class") 
 })
 
 test_that("list2char works with data.table without any list columns", {
